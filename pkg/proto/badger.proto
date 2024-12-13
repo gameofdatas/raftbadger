@@ -1,0 +1,52 @@
+syntax = "proto3";
+
+package badgerpb;
+
+option go_package = "pkg/proto;badgerpb";
+
+// BadgerService defines RPC methods for distributed data management.
+service BadgerService {
+  // SaveEntries saves a secret in the system.
+  rpc SaveEntries(SaveEntriesRequest) returns (SaveEntriesResponse);
+  // GetEntries retrieves a secret by ID.
+  rpc GetEntries(GetEntriesRequest) returns (GetEntriesResponse);
+  // DeleteEntries removes a secret by ID.
+  rpc DeleteEntries(DeleteEntriesRequest) returns (DeleteEntriesResponse);
+  // UpdateEntries updates a secret by ID.
+  rpc UpdateEntries(UpdateEntriesRequest) returns (UpdateEntriesResponse);
+}
+
+message SaveEntriesRequest {
+  string id = 1;       // Unique identifier for the entry.
+  bytes secrets = 2;   // The data to be stored.
+}
+
+message SaveEntriesResponse {
+  bool success = 1;    // Whether the operation was successful.
+}
+
+message GetEntriesRequest {
+  string id = 1;       // Unique identifier for the entry.
+}
+
+message GetEntriesResponse {
+  string id = 1;       // The ID of the entry.
+  bytes data = 2;      // The retrieved data.
+}
+
+message DeleteEntriesRequest {
+  string id = 1;       // Unique identifier for the entry.
+}
+
+message DeleteEntriesResponse {
+  bool success = 1;    // Whether the operation was successful.
+}
+
+message UpdateEntriesRequest {
+  string id = 1;       // Unique identifier for the entry.
+  bytes secrets = 2;   // The updated data.
+}
+
+message UpdateEntriesResponse {
+  bool success = 1;    // Whether the operation was successful.
+}
